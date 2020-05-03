@@ -7,7 +7,7 @@ use clap::Clap;
     about = "A utility to calculate Shannon entropy"
 )]
 struct Opts {
-    file_name: String,
+    filename: String,
 }
 
 fn main() {
