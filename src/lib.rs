@@ -71,7 +71,7 @@ mod tests {
         let mut test_file = tempfile().unwrap();
         test_file.write(&[0x00, 0x00, 0x01, 0x01, 0x02]).unwrap();
 
-        test_file.seek(SeekFrom::Start(0));
+        test_file.seek(SeekFrom::Start(0)).unwrap();
         let test_entropy = Entropy::new(&test_file);
 
         // Test that the frequency table was populated correctly
@@ -89,7 +89,7 @@ mod tests {
         let mut test_file = tempfile().unwrap();
         test_file.write(&[0x00, 0x00, 0x01, 0x01, 0x02]).unwrap();
 
-        test_file.seek(SeekFrom::Start(0));
+        test_file.seek(SeekFrom::Start(0)).unwrap();
         let test_entropy = Entropy::new(&test_file);
 
         let shannon_entropy = test_entropy.shannon_entropy();
@@ -102,7 +102,7 @@ mod tests {
         let mut test_file = tempfile().unwrap();
         test_file.write(&[0x00, 0x00, 0x01, 0x01, 0x02]).unwrap();
 
-        test_file.seek(SeekFrom::Start(0));
+        test_file.seek(SeekFrom::Start(0)).unwrap();
         let test_entropy = Entropy::new(&test_file);
 
         let metric_entropy = test_entropy.metric_entropy();
