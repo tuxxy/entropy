@@ -8,14 +8,14 @@ use std::fs::File;
 ///
 /// `length` is the number of bytes in the file.
 pub struct Entropy {
-    pub byte_count: [u64; 255],
+    pub byte_count: [u64; 256],
     pub length: u64,
 }
 
 impl Entropy {
     /// Gets metadata for the Entropy calculation from a File reference
     pub fn new(file: &File) -> Entropy {
-        let mut byte_count = [0u64; 255];
+        let mut byte_count = [0u64; 256];
         for byte in file.bytes() {
             byte_count[byte.unwrap() as usize] += 1
         }
@@ -31,7 +31,7 @@ impl Entropy {
     ///
     /// The equation is defined as: H(X) = - \sum_{i=0}^{n} P(x_i) log_2 P(x_i)
     /// It can be described as the minimum number of bits (per symbol) to encode
-    /// the input.
+    /// the input. Thus the output will be between 0 and 8.
     /// See https://en.wikipedia.org/wiki/Entropy_(information_theory) for
     /// more information.
     pub fn shannon_entropy(&self) -> f32 {
@@ -40,8 +40,6 @@ impl Entropy {
             if count == &0u64 {
                 continue;
             } else {
-                // TODO: Add flag for setting the alphabet size based on
-                // appearance in string.
                 let symbol_probability = *count as f32 / self.length as f32;
                 entropy += symbol_probability * symbol_probability.log2();
             }
@@ -57,7 +55,7 @@ impl Entropy {
     /// It can be described as the uncertainty or randomness of a string, where
     /// 1 means information is uniformly distributed across the string.
     pub fn metric_entropy(&self) -> f32 {
-        self.shannon_entropy() / self.length as f32
+        self.shannon_entropy() / 8f32
     }
 }
 
@@ -108,6 +106,6 @@ mod tests {
         let test_entropy = Entropy::new(&test_file);
 
         let metric_entropy = test_entropy.metric_entropy();
-        assert_eq!(metric_entropy, 0.3043856);
+        assert_eq!(metric_entropy, 0.19024101);
     }
 }
