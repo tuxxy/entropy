@@ -4,7 +4,7 @@ use std::fs::File;
 
 #[derive(Clap)]
 #[clap(
-    version = "1.0.0",
+    version = "1.0.1",
     author = "tux <me@johnpacific.com>",
     about = "A utility to calculate Shannon entropy of a given file"
 )]

@@ -35,12 +35,10 @@ impl Entropy {
     /// See https://en.wikipedia.org/wiki/Entropy_(information_theory) for
     /// more information.
     pub fn shannon_entropy(&self) -> f32 {
-        let mut entropy = 0.0f32;
-        for count in self.byte_count.iter() {
-            if count == &0u64 {
-                continue;
-            } else {
-                let symbol_probability = *count as f32 / self.length as f32;
+        let mut entropy = 0f32;
+        for &count in self.byte_count.iter() {
+            if count != 0 {
+                let symbol_probability = count as f32 / self.length as f32;
                 entropy += symbol_probability * symbol_probability.log2();
             }
         }
