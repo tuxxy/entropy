@@ -62,8 +62,8 @@ dependencies = [
 ]
 
 [[package]]
-name = "entropy"
-version = "1.0.1"
+name = "entropy-lib"
+version = "1.0.2"
 dependencies = [
  "clap",
  "tempfile",
