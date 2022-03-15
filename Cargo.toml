@@ -21,8 +21,8 @@ path = "src/lib.rs"
 name = "entropy"
 path = "src/main.rs"
 
-[dependencies.clap]
-version = "3.0.0-beta.1"
+[dependencies]
+clap = { version = "3.1.6", features = ["derive"] }
 
-[dev-dependencies.tempfile]
-version = "3.1.0"
+[dev-dependencies]
+tempfile= "3.3.0"
